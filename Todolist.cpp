@@ -1,19 +1,20 @@
+//missing many functionality and uncompleted
+
 #include <iostream>
 #include <vector>
 #include <string>
 
-class Task{
-private:
-    std::string description;
-    bool completed;
-public:
+struct Task{
+std::string description;
    Task(const std::string& desc)
      :description(desc)
-     ,completed(false)
      {}
 
     std::string getDescription(){
         return description;
+    }
+    void setDescription(const std::string& desc){
+          description = desc;
     }
 };
 
@@ -33,7 +34,24 @@ void displayTask(){
 
     }
 }
+void editTask(){
+    if (todolist.empty()){
+        std::cout << "No tasks to edit\n";
+    }
 
+    std::cout << "Tasks:\n";
+    for(int i = 0; i < todolist.size(); ++i){
+        std::cout << i + 1 << "." << todolist[i].getDescription()
+        << "\n";
+
+    }
+    std::cout << "Enter a task to edit:";
+    int tasknumber;
+    std::cin >> tasknumber;
+    if(tasknumber >=0 && tasknumber <= todolist.size()){
+
+    }
+}
 };
 
 class Todo{
