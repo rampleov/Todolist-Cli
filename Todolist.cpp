@@ -1,104 +1,95 @@
-//missing many functionality and uncompleted
-
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 
 struct Task{
-std::string description;
-   Task(const std::string& desc)
-     :description(desc)
-     {}
+private:
+    std::string Desc;
+public:
+   Task(const std::string&desc)
+   :Desc(desc)
+   {}
 
-    std::string getDescription(){
-        return description;
-    }
-    void setDescription(const std::string& desc){
-          description = desc;
-    }
+ std::string description(){
+    return Desc;
+   }
+
+   void setDescription(const std::string& desc){
+      Desc = desc;
+   }
+
 };
 
 class Todolist{
-private:
      std::vector<Task> todolist;
 public:
-   void addTask(const std::string& desc){
-      todolist.emplace_back(desc);
-      std::cout << "Task succesfully added\n";
-}
 
-void displayTask(){
-    for(int i = 0; i < todolist.size(); ++i){
-        std::cout << i + 1 << "."
-        << todolist[i].getDescription() << std::endl;
+     void addTask(const std::string& desc){
+       todolist.emplace_back(desc);
+     }
 
-    }
-}
-void editTask(){
-    if (todolist.empty()){
-        std::cout << "No tasks to edit\n";
-    }
 
-    std::cout << "Tasks:\n";
-    for(int i = 0; i < todolist.size(); ++i){
-        std::cout << i + 1 << "." << todolist[i].getDescription()
-        << "\n";
+     void displayTasks(){
+      for(int i = 0; i < todolist.size(); ++i){
+        std::cout << i + 1 << "." 
+        <<  todolist[i].description() << "\n";
+      }
+     }
 
-    }
-    std::cout << "Enter a task to edit:";
-    int tasknumber;
-    std::cin >> tasknumber;
-    if(tasknumber >=0 && tasknumber <= todolist.size()){
-
-    }
-}
+     void editTask(){
+      displayTasks();
+      std::cout << "Enter a task to edit: ";
+      int tasknumber;
+      std::cin >> tasknumber;
+      std::cin.ignore();
+      if(tasknumber > 0 && tasknumber <= todolist.size()){
+          std::cout << "Enter new task: ";
+          std::string taskname;
+          std::getline(std::cin , taskname);
+          todolist[tasknumber - 1].setDescription(taskname);
+      }
+     }
 };
 
 class Todo{
-private:
-   Todolist todo;
+  Todolist list;
 public:
-    void addtask(){
-        std::cout << "Enter a Task to add: ";
-        std::string task;
-        std::getline(std::cin , task);
-        todo.addTask(task);
-        }
-    void displayTasks(){
-        todo.displayTask();
-    }
-    void displayMenu(){
-        char input;
-        do{
-        std::cout << "1.Add Tasks\n";
-        std::cout << "2.Display Tasks\n";
-        std::cout << "Enter a number:";
-        int num;
-        std::cin >> num;
-        std::cin.ignore();
-
-
-        switch(num){
-            case 1:
-            addtask();
-            break;
-            case 2:
-            displayTasks();
-            break;
-
-        }
-        std::cout << "Run again(Y/N): ";
-        std::cin >> input;
-        std::cin.ignore();
-       } while(input == 'Y');
-        std::cout << "\nGoodbye\n";
-
-
-
+  void todolist(){
+    char a;
+    do{
+    std::cout << "1.Add tasks\n";
+    std::cout << "2.Display tasks\n";
+    std::cout << "3.Edit tasks\n";
+    std::cout << "Enter a tasknumber: ";
+    int num;
+    std::cin >> num;
+    std::cin.ignore();
+    switch(num){
+      case 1:{
+      std::cout << "Enter a task to add: ";
+      std::string task;
+      std::getline(std::cin , task);
+      list.addTask(task);
+      }
+      break;
+      case 2:{
+      list.displayTasks();
+      break;
+      }
+      case 3:{
+      list.editTask();
+      break;
+      }
 
     }
+     std::cout << "Run again(Y/N): ";
+      std::cin >> a;
+      std::cin.ignore();
+  } while(a == 'Y');
+  std::cout << "\nGoodbye";
+};
 };
 int main(){
-Todo todo;
-todo.displayMenu();
+  Todo todo;
+  todo.todolist();
 }
