@@ -5,9 +5,11 @@
 struct Task{
 private:
     std::string Desc;
+    bool completed;
 public:
    Task(const std::string&desc)
    :Desc(desc)
+   ,completed(false)
    {}
 
  std::string description(){
@@ -16,6 +18,12 @@ public:
 
    void setDescription(const std::string& desc){
       Desc = desc;
+   }
+   bool Completed(){
+    return completed;
+   }
+   void setComplete(bool complete){
+    completed = complete;
    }
 
 };
@@ -34,7 +42,8 @@ public:
      void displayTasks(){
       for(int i = 0; i < todolist.size(); ++i){
         std::cout << i + 1 << "." 
-        <<  todolist[i].description() << "\n";
+        <<  todolist[i].description() << "(" 
+         << (todolist[i].Completed() ? "Complete" : "Incomplete") << ")" <<  "\n";
       }
      }
 
@@ -61,6 +70,18 @@ public:
       todolist.erase(todolist.begin() + number - 1);
       std::cout << "Task sucessfully deleted\n";
      }
+     void markcomplete(){
+        for(int i = 0; i < todolist.size(); ++i){
+            displayTasks();
+            std::cout << "Enter a task you have completed: ";
+            int num;
+            std::cin >> num;
+            todolist[num].setComplete(true);
+           std::cout << "Task assigned complete";
+
+        }
+
+     }
 };
 
 class Todo{
@@ -73,6 +94,7 @@ public:
     std::cout << "2.Display tasks\n";
     std::cout << "3.Edit tasks\n";
     std::cout << "4.Delete task\n";
+    std::cout << "5.Mark task as completed\n";
     std::cout << "Enter a tasknumber: ";
     int num;
     std::cin >> num;
@@ -95,6 +117,9 @@ public:
       }
       case 4:{
         list.deleteTask();
+      }
+      case 5:{
+        list.markcomplete();
       }
 
     }
