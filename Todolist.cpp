@@ -26,6 +26,8 @@ public:
 
      void addTask(const std::string& desc){
        todolist.emplace_back(desc);
+      std::cout << "Task sucessfully added\n";
+
      }
 
 
@@ -47,7 +49,17 @@ public:
           std::string taskname;
           std::getline(std::cin , taskname);
           todolist[tasknumber - 1].setDescription(taskname);
+           std::cout << "Task has been edited\n";
       }
+     }
+
+     void deleteTask(){
+      displayTasks();
+      std::cout << "Enter task number to delete: ";
+      int number;
+      std::cin >> number;
+      todolist.erase(todolist.begin() + number - 1);
+      std::cout << "Task sucessfully deleted\n";
      }
 };
 
@@ -60,6 +72,7 @@ public:
     std::cout << "1.Add tasks\n";
     std::cout << "2.Display tasks\n";
     std::cout << "3.Edit tasks\n";
+    std::cout << "4.Delete task\n";
     std::cout << "Enter a tasknumber: ";
     int num;
     std::cin >> num;
@@ -80,12 +93,15 @@ public:
       list.editTask();
       break;
       }
+      case 4:{
+        list.deleteTask();
+      }
 
     }
      std::cout << "Run again(Y/N): ";
       std::cin >> a;
       std::cin.ignore();
-  } while(a == 'Y');
+  } while(a == 'Y' && "y");
   std::cout << "\nGoodbye";
 };
 };
