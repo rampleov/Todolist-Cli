@@ -35,15 +35,17 @@ public:
      void addTask(const std::string& desc){
        todolist.emplace_back(desc);
       std::cout << "Task sucessfully added\n";
+      displayTasks();
 
      }
 
 
      void displayTasks(){
+      system("clear");
       for(int i = 0; i < todolist.size(); ++i){
         std::cout << i + 1 << "." 
         <<  todolist[i].description() << "(" 
-         << (todolist[i].Completed() ? "Complete" : "Incomplete") << ")" <<  "\n";
+         << (todolist[i].Completed() ? "Completed" : "Incomplete") << ")" <<  "\n";
       }
      }
 
@@ -60,6 +62,7 @@ public:
           todolist[tasknumber - 1].setDescription(taskname);
            std::cout << "Task has been edited\n";
       }
+      displayTasks();
      }
 
      void deleteTask(){
@@ -69,6 +72,7 @@ public:
       std::cin >> number;
       todolist.erase(todolist.begin() + number - 1);
       std::cout << "Task sucessfully deleted\n";
+      displayTasks();
      }
      void markcomplete(){
         for(int i = 0; i < todolist.size(); ++i){
@@ -76,9 +80,9 @@ public:
             std::cout << "Enter a task you have completed: ";
             int num;
             std::cin >> num;
-            todolist[num].setComplete(true);
-           std::cout << "Task assigned complete";
-
+            todolist[num - 1].setComplete(true);
+           std::cout << "Task assigned complete\n";
+          displayTasks();
         }
 
      }
@@ -127,7 +131,7 @@ public:
       std::cin >> a;
       std::cin.ignore();
   } while(a == 'Y' && "y");
-  std::cout << "\nGoodbye";
+  std::cout << "\nGoodbye\n";
 };
 };
 int main(){
